@@ -1,8 +1,4 @@
-in_progress = True
-current_player = 'Player 1'
-game_board = ['#','#','#','#','#','#','#','#','#','#']
-player_markers = {'Player 1':'wrong','Player 2': 'wrong'}
-
+## function to show the game board
 def display_board(board):
     print(" ")
     print (board[1],'|',board[2],'|',board[3])
@@ -11,6 +7,7 @@ def display_board(board):
     print ('---------')
     print (board[7],'|',board[8],'|',board[9])
 
+## function to let player 1 choose a marker X or O
 def choose_marker(player1_marker):
     while player1_marker not in ['X','O']:
         player1_marker = input("Player 1, Would you like to be X or O?").upper()
@@ -21,6 +18,7 @@ def choose_marker(player1_marker):
     if player1_marker == 'O':
         return {'Player 1':'O','Player 2': 'X'}
 
+## function to request a location to mark from player
 def mark_location(board, current_player):
     location = 'wrong'
     while location not in ['1','2','3','4','5','6','7','8','9'] or board[int(location)] != '#':
@@ -31,13 +29,14 @@ def mark_location(board, current_player):
             print("Sorry, this location is already marked!")
         
     return int(location)
-
+## function to place correct marker in selected location
 def place_marker(board,location,player,player_markers):
     if player == 'Player 1':
         board[location] = player_markers['Player 1']
     elif player == 'Player 2':
         board[location] = player_markers['Player 2']
 
+## function to check if game board has a winner in current state
 def check_game():
     no_winner = True
     if set([game_board[1],game_board[2],game_board[3]]) == {'X'} or set([game_board[1],game_board[2],game_board[3]]) == {'O'}:
@@ -58,7 +57,13 @@ def check_game():
         return False
     else:
         return True 
-    
+
+
+## running the game
+in_progress = True
+current_player = 'Player 1'
+game_board = ['#','#','#','#','#','#','#','#','#','#']
+player_markers = {'Player 1':'wrong','Player 2': 'wrong'}
 
 
 display_board(game_board)
