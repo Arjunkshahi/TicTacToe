@@ -66,33 +66,64 @@ def check_draw(in_progress,game_board):
     else:
         return False
     
-## running the game
-in_progress = True
-is_draw = False
-current_player = 'Player 1'
-game_board = ['#','#','#','#','#','#','#','#','#','#']
-player_markers = {'Player 1':'wrong','Player 2': 'wrong'}
+#function to replay game
+def replay_game():
+    play_again = 'wrong'
+    while play_again not in ['Y','N']:
+        play_again = input("Would you like to play again? Y or N: ").upper()
+        if play_again not in ['Y','N']:
+            print ("Please type Y or N")
+    return play_again
+    
+## Simple introduction to the game and an explanation of the grid numbering
 
-display_board(game_board)
-player_markers = choose_marker(player_markers['Player 1'])
-print(f"Great! Player 1 is {player_markers['Player 1']} and Player 2 is {player_markers['Player 2']}.")
+print("Welcome to my Tic Tac Toe game! The grid locations are numbered as follows:")
+print(" ")
+print ('1','|','2','|','3')
+print ('---------')
+print ('4','|','5','|','6')
+print ('---------')
+print ('7','|','8','|','9')
 
-while in_progress and not is_draw:
-    current_location = mark_location(game_board, current_player)
-    place_marker(game_board,current_location,current_player,player_markers)
-    display_board(game_board)
-    in_progress = check_game(game_board, current_player, player_markers)
-    is_draw = check_draw(in_progress,game_board)
-    if current_player == 'Player 1':
-        current_player = 'Player 2'
-    elif current_player == 'Player 2':
-        current_player = 'Player 1'
+## The loop will check if the players want to replay at the end of each game
+keep_playing = 'Y'
+while keep_playing == 'Y':
+    ## Initialize game variables
+    in_progress = True
+    is_draw = False
+    current_player = 'Player 1'
+    game_board = ['#','#','#','#','#','#','#','#','#','#']
+    player_markers = {'Player 1':'wrong','Player 2': 'wrong'}
+    
+    ## First player gets to choose their marker and a dictionary is defined
+    player_markers = choose_marker(player_markers['Player 1'])
+    print(f"Great! Player 1 is {player_markers['Player 1']} and Player 2 is {player_markers['Player 2']}.")
 
-if is_draw:
-    print ("\nIts a draw!")
-else:
-    if current_player == 'Player 1':
-        current_player = 'Player 2'
-    elif current_player == 'Player 2':
-        current_player = 'Player 1' 
-    print(f"\nCongrats {current_player} ({player_markers[current_player]}), you won!")
+    # Rounds where respective markers are placed at chosen locations
+    while in_progress and not is_draw:
+        current_location = mark_location(game_board, current_player)
+        place_marker(game_board,current_location,current_player,player_markers)
+        display_board(game_board)
+        ## check and assign game status
+        in_progress = check_game(game_board, current_player, player_markers)
+        is_draw = check_draw(in_progress,game_board)
+        
+        ## Flip to other player for the following round
+        if current_player == 'Player 1':
+            current_player = 'Player 2'
+        elif current_player == 'Player 2':
+            current_player = 'Player 1'
+        
+    ## Depending on game status, print out a final result
+    if is_draw:
+        print ("\nIts a draw!")
+    else:
+        if current_player == 'Player 1':
+            current_player = 'Player 2'
+        elif current_player == 'Player 2':
+            current_player = 'Player 1' 
+        print(f"\nCongrats {current_player} ({player_markers[current_player]}), you won!")
+    ## Ask if the players would like to play again
+    keep_playing = replay_game()
+    
+print("Thanks for playing!")
