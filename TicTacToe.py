@@ -10,7 +10,7 @@ def display_board(board):
 ## function to let player 1 choose a marker X or O
 def choose_marker(player1_marker):
     while player1_marker not in ['X','O']:
-        player1_marker = input("Player 1, Would you like to be X or O?: ").upper()
+        player1_marker = input("\nPlayer 1, Would you like to be X or O?: ").upper()
         if player1_marker not in ['X','O']:
             print("please choose X or Y")
     if player1_marker == 'X':
