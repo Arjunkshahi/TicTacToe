@@ -10,7 +10,7 @@ def display_board(board):
 ## function to let player 1 choose a marker X or O
 def choose_marker(player1_marker):
     while player1_marker not in ['X','O']:
-        player1_marker = input("Player 1, Would you like to be X or O?").upper()
+        player1_marker = input("Player 1, Would you like to be X or O?: ").upper()
         if player1_marker not in ['X','O']:
             print("please choose X or Y")
     if player1_marker == 'X':
@@ -22,7 +22,7 @@ def choose_marker(player1_marker):
 def mark_location(board, current_player):
     location = 'wrong'
     while location not in ['1','2','3','4','5','6','7','8','9'] or board[int(location)] != '#':
-        location = input(f"{current_player} please choose a location (1-9) to mark")
+        location = input(f"{current_player} ({player_markers[current_player]}) please choose a location (1-9) to mark: ")
         if location not in ['1','2','3','4','5','6','7','8','9']:
             print("Sorry, that is not a valid input")
         elif board[int(location)] != '#':
