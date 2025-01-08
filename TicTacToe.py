@@ -37,7 +37,7 @@ def place_marker(board,location,player,player_markers):
         board[location] = player_markers['Player 2']
 
 ## function to check if game board has a winner in current state
-def check_game(game_board):
+'''def check_game(game_board):
     no_winner = True
     if set([game_board[1],game_board[2],game_board[3]]) == {'X'} or set([game_board[1],game_board[2],game_board[3]]) == {'O'}:
         return False
@@ -56,7 +56,28 @@ def check_game(game_board):
     elif set([game_board[3],game_board[5],game_board[7]]) == {'X'} or set([game_board[3],game_board[5],game_board[7]]) == {'O'}:
         return False
     else:
-        return True 
+        return True '''
+
+def check_game(game_board, current_player, player_markers):
+    no_winner = True
+    if game_board[1] == game_board[2] == game_board[3] == player_markers[current_player]:
+        return False
+    elif game_board[4] == game_board[5] == game_board[6] == player_markers[current_player]:
+        return False
+    elif game_board[7] == game_board[8] == game_board[9] == player_markers[current_player]:
+        return False
+    elif game_board[1] == game_board[4] == game_board[7] == player_markers[current_player]:
+        return False
+    elif game_board[2] == game_board[5] == game_board[6] == player_markers[current_player]:
+        return False
+    elif game_board[3] == game_board[6] == game_board[9] == player_markers[current_player]:
+        return False
+    elif game_board[1] == game_board[5] == game_board[9] == player_markers[current_player]:
+        return False
+    elif game_board[3] == game_board[5] == game_board[7] == player_markers[current_player]:
+        return False
+    else:
+        return True       
 
 # function to check if there is a draw
 def check_draw(in_progress,game_board):
@@ -80,7 +101,7 @@ while in_progress and not is_draw:
     current_location = mark_location(game_board, current_player)
     place_marker(game_board,current_location,current_player,player_markers)
     display_board(game_board)
-    in_progress = check_game(game_board)
+    in_progress = check_game(game_board, current_player, player_markers)
     is_draw = check_draw(in_progress,game_board)
     if current_player == 'Player 1':
         current_player = 'Player 2'
@@ -88,7 +109,7 @@ while in_progress and not is_draw:
         current_player = 'Player 1'
 
 if is_draw:
-    print ("\n Its a draw!")
+    print ("\nIts a draw!")
 else:
     if current_player == 'Player 1':
         current_player = 'Player 2'
