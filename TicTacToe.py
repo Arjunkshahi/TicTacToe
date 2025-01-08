@@ -37,7 +37,7 @@ def place_marker(board,location,player,player_markers):
         board[location] = player_markers['Player 2']
 
 ## function to check if game board has a winner in current state
-def check_game():
+def check_game(game_board):
     no_winner = True
     if set([game_board[1],game_board[2],game_board[3]]) == {'X'} or set([game_board[1],game_board[2],game_board[3]]) == {'O'}:
         return False
@@ -58,30 +58,40 @@ def check_game():
     else:
         return True 
 
-
+# function to check if there is a draw
+def check_draw(in_progress,game_board):
+    if in_progress == True and '#' not in game_board[1:]:
+        return True
+    else:
+        return False
+    
 ## running the game
 in_progress = True
+is_draw = False
 current_player = 'Player 1'
 game_board = ['#','#','#','#','#','#','#','#','#','#']
 player_markers = {'Player 1':'wrong','Player 2': 'wrong'}
-
 
 display_board(game_board)
 player_markers = choose_marker(player_markers['Player 1'])
 print(f"Great! Player 1 is {player_markers['Player 1']} and Player 2 is {player_markers['Player 2']}.")
 
-while in_progress:
+while in_progress and not is_draw:
     current_location = mark_location(game_board, current_player)
     place_marker(game_board,current_location,current_player,player_markers)
     display_board(game_board)
-    in_progress = check_game()
+    in_progress = check_game(game_board)
+    is_draw = check_draw(in_progress,game_board)
     if current_player == 'Player 1':
         current_player = 'Player 2'
     elif current_player == 'Player 2':
         current_player = 'Player 1'
 
-if current_player == 'Player 1':
-    current_player = 'Player 2'
-elif current_player == 'Player 2':
-    current_player = 'Player 1' 
-print(f"\nCongrats {current_player} ({player_markers[current_player]}), you won!")
+if is_draw:
+    print ("\n Its a draw!")
+else:
+    if current_player == 'Player 1':
+        current_player = 'Player 2'
+    elif current_player == 'Player 2':
+        current_player = 'Player 1' 
+    print(f"\nCongrats {current_player} ({player_markers[current_player]}), you won!")
