@@ -70,7 +70,7 @@ def check_draw(in_progress,game_board):
 def replay_game():
     play_again = 'wrong'
     while play_again not in ['Y','N']:
-        play_again = input("Would you like to play again? Y or N: ").upper()
+        play_again = input("\nWould you like to play again? Y or N: ").upper()
         if play_again not in ['Y','N']:
             print ("Please type Y or N")
     return play_again
